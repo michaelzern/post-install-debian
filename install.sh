@@ -1,25 +1,11 @@
-#!/bin/sh
+#!/bin/bash
+#######################################
+# Bash script to install apps on a new system (Debian)
 
-apt-get update
+## Update packages and Upgrade system
+sudo apt update && sudo apt upgrade -y
 
-#etc
-
-set -eu -o pipefail # fail on error and report it, debug all lines
-
-sudo -n true
-test $? -eq 0 || exit 1 "you should have sudo privilege to run this script"
-
-echo installing the must-have pre-requisites
-while read -r p ; do sudo apt-get install -y $p ; done < <(cat << "EOF"
-    htop
-    tmux
-    bmon
-    curl
-    nano
-    wget
-
-EOF
-)
+package="tmux screenfetch docker.io htop tmux bmon curl nano wget"
 
 echo installing the nice-to-have pre-requisites
 echo you have 5 seconds to proceed ...
@@ -28,4 +14,23 @@ echo hit Ctrl+C to quit
 echo -e "\n"
 sleep 6
 
-sudo apt-get install -y tig
+#install dependencies
+for packageName in $package; do
+  dpkg -l | grep -qw $packageName || sudo apt install -y $packageName
+done
+
+sudo usermod -aG docker $USER
+
+# 1. Set the file to write to
+file='$HOME/.bashrc'
+
+# 2. Append text with '>>'
+cat <<EOT >> $file
+#custom
+export EDITOR='nano'
+if [ -f /usr/bin/screenfetch ]; then screenfetch; fi
+EOT
+
+if [ -f /var/run/reboot-required ]; then
+  echo 'reboot required'
+fi
