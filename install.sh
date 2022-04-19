@@ -1,12 +1,20 @@
 #!/bin/bash
-#######################################
 # Bash script to install apps on a new system (Debian)
 
 ## Update packages and Upgrade system
 sudo apt update && sudo apt upgrade -y
 
-package="screenfetch docker.io htop tmux bmon curl nano wget"
+package="
+screenfetch
+docker.io
+htop
+tmux
+bmon
+curl
+nano
+wget"
 
+echo
 echo Installing the nice-to-have pre-requisites
 echo
 echo you have 5 seconds to proceed ...
@@ -32,6 +40,7 @@ export EDITOR='nano'
 if [ -f /usr/bin/screenfetch ]; then screenfetch; fi
 EOT
 
+# check for reboot
 if [ -f /var/run/reboot-required ]; then
   echo 'reboot required'
 fi
