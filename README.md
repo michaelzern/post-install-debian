@@ -17,3 +17,9 @@ sudo chmod +x install.sh
 Edit package to add or remove <br />
 Sets nano as editor <br />
 Runs screenfetch at startup <br />
+
+## Better solutions
+vagrant <br />
+ansible (agentless) <br />
+chef <br />
+puppet <br />
