@@ -3,8 +3,12 @@
   <img src="https://media.giphy.com/media/MCRQ0Nkn4KfeQDdM7N/giphy.gif" width="150"/>
 </div>
 
-## Setup
+## Installation
 
+For one step command run
+### `curl https://raw.githubusercontent.com/michaelzern/post-install-debian/main/install.sh | bash`
+
+Otherwise
 ```
 sudo nano install.sh
 sudo chmod +x install.sh
@@ -14,7 +18,7 @@ sudo chmod +x install.sh
 
 ## Notes
 
-Edit package to add or remove <br />
+Edit packages inside install.sh to add or remove <br />
 Sets nano as editor <br />
 Runs screenfetch at startup <br />
 
