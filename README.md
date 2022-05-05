@@ -10,7 +10,7 @@ For one step command run
 
 Otherwise
 ```
-sudo nano install.sh
+curl https://raw.githubusercontent.com/michaelzern/post-install-debian/main/install.sh --output install.sh
 sudo chmod +x install.sh
 ./install.sh
 ```
