@@ -10,7 +10,7 @@ For one step command run
 
 Otherwise
 ```
-curl https://raw.githubusercontent.com/michaelzern/post-install-debian/main/install.sh --output install.sh
+curl -o install.sh https://raw.githubusercontent.com/michaelzern/post-install-debian/main/install.sh
 less install.sh
 sudo chmod +x install.sh
 ./install.sh
