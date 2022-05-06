@@ -11,6 +11,7 @@ For one step command run
 Otherwise
 ```
 curl https://raw.githubusercontent.com/michaelzern/post-install-debian/main/install.sh --output install.sh
+less install.sh
 sudo chmod +x install.sh
 ./install.sh
 ```
