@@ -5,7 +5,7 @@
 sudo apt update && sudo apt upgrade -y
 
 package="
-screenfetch
+neofetch
 docker.io
 htop
 tmux
@@ -39,7 +39,7 @@ if [ $isInFile -eq 0 ]; then
  cat <<EOT >> $file
 #custom
 export EDITOR='nano'
-if [ -f /usr/bin/screenfetch ]; then screenfetch; fi
+if [ -f /usr/bin/neofetch ]; then neofetch; fi
 EOT
 else
   echo bashrc already contains screenfetch
