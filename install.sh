@@ -10,7 +10,6 @@ docker.io
 htop
 tmux
 bmon
-curl
 nano
 wget"
 
@@ -42,7 +41,7 @@ export EDITOR='nano'
 if [ -f /usr/bin/neofetch ]; then neofetch; fi
 EOT
 else
-  echo bashrc already contains screenfetch
+  echo bashrc already contains neofetch
 fi
 
 ## check for reboot
