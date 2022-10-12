@@ -31,7 +31,7 @@ sudo usermod -aG docker $USER
 
 ## 1. Set the file to write to
 file=$HOME/.bashrc
-isInFile=$(cat $file | grep -c "screenfetch")
+isInFile=$(cat $file | grep -c "neofetch")
 
 ## 2. Append text
 if [ $isInFile -eq 0 ]; then
