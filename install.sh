@@ -7,7 +7,7 @@ sudo apt update && sudo apt upgrade -y
 package="
 neofetch
 docker.io
-htop
+bpytop
 tmux
 bmon
 nano
