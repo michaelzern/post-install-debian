@@ -1,0 +1,7 @@
+neofetch
+docker.io
+bpytop
+tmux
+bmon
+nano
+wget

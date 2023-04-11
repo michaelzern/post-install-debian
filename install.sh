@@ -1,54 +1,69 @@
 #!/bin/bash
 # Bash script to install apps on a new system (Debian)
 
-## Update packages and Upgrade system
-sudo apt update && sudo apt upgrade -y
+# Update packages and Upgrade system
+update_and_upgrade() {
+  echo "Updating packages and upgrading the system..."
+  sudo apt update && sudo apt upgrade -y || { echo "Error updating and upgrading."; exit 1; }
+}
 
-package="
-neofetch
-docker.io
-bpytop
-tmux
-bmon
-nano
-wget"
+# Function to install packages
+install_packages() {
+  local packages_list="$1"
+  echo "Installing packages from $packages_list..."
+  while IFS= read -r package_name; do
+    if ! dpkg -l | grep -qw "$package_name"; then
+      sudo apt install -y "$package_name" || { echo "Error installing $package_name."; exit 1; }
+    fi
+  done < "$packages_list"
+}
 
-echo
-echo Installing the nice-to-have pre-requisites
-echo
-echo you have 5 seconds to proceed ...
-echo
-echo hit Ctrl+C to quit
-echo -e "\n"
-sleep 6
+# Function to add user to the Docker group
+add_user_to_docker_group() {
+  echo "Adding user to the Docker group..."
+  sudo usermod -aG docker "$USER" || { echo "Error adding user to Docker group."; exit 1; }
+}
 
-## install dependencies
-for packageName in $package; do
-  dpkg -l | grep -qw $packageName || sudo apt install -y $packageName
-done
+# Function to update .bashrc
+update_bashrc() {
+  local file="$HOME/.bashrc"
+  local is_in_file=$(grep -c "neofetch" "$file")
 
-sudo usermod -aG docker $USER
-
-## 1. Set the file to write to
-file=$HOME/.bashrc
-isInFile=$(cat $file | grep -c "neofetch")
-
-## 2. Append text
-if [ $isInFile -eq 0 ]; then
- cat <<EOT >> $file
-#custom
+  if [ "$is_in_file" -eq 0 ]; then
+    echo "Updating .bashrc..."
+    cat <<EOT >> "$file"
+# Custom settings
 export EDITOR='nano'
-if [ -f /usr/bin/neofetch ]; then neofetch; fi
+[ -f /usr/bin/neofetch ] && neofetch
 EOT
-else
-  echo bashrc already contains neofetch
-fi
+  else
+    echo "bashrc already contains neofetch"
+  fi
+}
 
-## check for reboot
-if [ -f /var/run/reboot-required ]; then
-  echo 'reboot required'
-fi
+# Function to check for reboot requirement
+check_for_reboot() {
+  if [ -f /var/run/reboot-required ]; then
+    echo "Reboot required"
+  fi
+}
 
-echo
-echo // Complete //
-echo
+# Main script
+main() {
+  local packages_list="packages.txt"
+
+  if [ ! -f "$packages_list" ]; then
+    echo "Error: Package list file $packages_list not found."
+    exit 1
+  fi
+
+  update_and_upgrade
+  install_packages "$packages_list"
+  add_user_to_docker_group
+  update_bashrc
+  check_for_reboot
+
+  echo
+  echo "Installation Complete"
+  echo
+}
