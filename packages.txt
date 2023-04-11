@@ -1,7 +1,19 @@
 neofetch
-docker.io
-bpytop
-tmux
-bmon
-nano
-wget
+
+# Optional packages for Ubuntu Server users
+# nano
+# wget
+# docker.io
+# htop
+# vim
+# emacs
+# build-essential
+# python3-pip
+# fail2ban
+# unattended-upgrades
+# ufw
+# ncdu
+# rsync
+# bmon
+# tmux
+# bpytop

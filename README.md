@@ -19,12 +19,14 @@ sudo chmod +x install.sh
 
 ## Notes
 
-Edit packages inside install.sh to add or remove <br />
-Sets nano as editor <br />
-Runs screenfetch at startup <br />
+- Edit packages inside `packages.txt`
+- The script now includes optional packages. You can choose to install all optional packages, select them one by one, or skip them during the installation process.
+- Sets nano as the default editor
+- Runs neofetch at startup
 
 ## Better solutions
-vagrant <br />
-ansible (agentless) <br />
-chef <br />
-puppet <br />
+
+- Vagrant
+- Ansible (agentless)
+- Chef
+- Puppet
