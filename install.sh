@@ -18,16 +18,20 @@ prompt_optional_packages() {
         break
         ;;
       "yes" | "y" )
+        tmp_packages_list=$(mktemp)
+        cp packages.txt "$tmp_packages_list"
         for package in "${optional_packages[@]}"; do
           package="${package/\#/}"
           echo "Install $package? (yes/no)"
           read -r opt
           case $opt in
-            "yes" | "y" ) echo "$package" >> packages.txt;;
+            "yes" | "y" ) echo "$package" >> "$tmp_packages_list";;
             "no" | "n" ) ;;
             * ) echo "Invalid option, please type 'yes' or 'no'.";;
           esac
         done
+        cp "$tmp_packages_list" packages.txt
+        rm "$tmp_packages_list"
         break
         ;;
       "no" | "n" ) break;;
