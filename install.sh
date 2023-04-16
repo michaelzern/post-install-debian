@@ -11,6 +11,7 @@ prompt_optional_packages() {
     case $answer in
       "yes -a" | "y -a" )
         for package in "${optional_packages[@]}"; do
+          package="${package/\#/}"
           echo "Installing $package..."
           echo "$package" >> packages.txt
         done
@@ -18,6 +19,7 @@ prompt_optional_packages() {
         ;;
       "yes" | "y" )
         for package in "${optional_packages[@]}"; do
+          package="${package/\#/}"
           echo "Install $package? (yes/no)"
           read -r opt
           case $opt in
