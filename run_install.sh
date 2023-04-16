@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Create a directory for the files
+mkdir post-install
+cd post-install
+
 # Download install.sh and packages.txt
 curl -O https://raw.githubusercontent.com/michaelzern/post-install-debian/main/install.sh
 curl -O https://raw.githubusercontent.com/michaelzern/post-install-debian/main/packages.txt
