@@ -90,8 +90,8 @@ main() {
     exit 1
   fi
   
-  prompt_optional_packages
   update_and_upgrade
+  prompt_optional_packages
   install_packages "$packages_list"
   # Check if docker.io is in packages.txt
   if grep -q "docker.io" "$packages_list"; then
