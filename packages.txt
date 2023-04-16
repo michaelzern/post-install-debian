@@ -1,6 +1,5 @@
 neofetch
 
-# Optional packages
 # nano
 # wget
 # docker.io
