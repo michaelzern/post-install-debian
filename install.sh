@@ -46,6 +46,9 @@ install_packages() {
   echo "Installing packages from $packages_list..."
   while IFS= read -r package_name; do
     if ! dpkg -l | grep -qw "$package_name"; then
+      if [[ "$package_name" == "# "* ]]; then
+        package_name="${package_name/# /}"
+      fi
       sudo apt install -y "$package_name" || { echo "Error installing $package_name."; exit 1; }
     fi
   done < "$packages_list"
