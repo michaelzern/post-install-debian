@@ -93,7 +93,10 @@ main() {
   prompt_optional_packages
   update_and_upgrade
   install_packages "$packages_list"
+  # Check if docker.io is in packages.txt
+  if grep -q "docker.io" "$packages_list"; then
   add_user_to_docker_group
+  fi
   update_bashrc
   check_for_reboot
 
@@ -101,3 +104,5 @@ main() {
   echo "Installation Complete"
   echo
 }
+
+main # Call the main function to start the script

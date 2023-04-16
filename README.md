@@ -5,14 +5,14 @@
 
 ## Installation
 
-For one step command run
-### `curl https://raw.githubusercontent.com/michaelzern/post-install-debian/main/install.sh | bash`
+For a one-step command run (includes file integrity check using SHA256 checksums):
+### `curl https://raw.githubusercontent.com/michaelzern/post-install-debian/main/run_install.sh | bash`
 
-Otherwise
+Alternatively, you can manually download and run the script:
 ```
-curl -o install.sh https://raw.githubusercontent.com/michaelzern/post-install-debian/main/install.sh
-less install.sh
-sudo chmod +x install.sh
+git clone https://github.com/michaelzern/post-install-debian.git
+cd post-install-debian
+chmod +x install.sh
 ./install.sh
 ```
 
