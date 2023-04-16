@@ -1,6 +1,7 @@
+# Mandatory packages
 neofetch
 
-# Optional packages for Ubuntu Server users
+# Optional packages
 # nano
 # wget
 # docker.io

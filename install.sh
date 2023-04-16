@@ -9,26 +9,26 @@ prompt_optional_packages() {
   echo "Would you like to install optional packages? (yes/yes -a/no)"
   while read -r answer; do
     case $answer in
-      "yes -a" )
+      "yes -a" | "y -a" )
         for package in "${optional_packages[@]}"; do
           echo "Installing $package..."
           echo "$package" >> packages.txt
         done
         break
         ;;
-      "yes" )
+      "yes" | "y" )
         for package in "${optional_packages[@]}"; do
           echo "Install $package? (yes/no)"
           read -r opt
           case $opt in
-            "yes" ) echo "$package" >> packages.txt;;
-            "no" ) ;;
+            "yes" | "y" ) echo "$package" >> packages.txt;;
+            "no" | "n" ) ;;
             * ) echo "Invalid option, please type 'yes' or 'no'.";;
           esac
         done
         break
         ;;
-      "no" ) break;;
+      "no" | "n" ) break;;
       * ) echo "Invalid option, please type 'yes', 'yes -a', or 'no'.";;
     esac
   done
