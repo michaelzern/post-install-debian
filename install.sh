@@ -22,13 +22,18 @@ prompt_optional_packages() {
         cp packages.txt "$tmp_packages_list"
         for package in "${optional_packages[@]}"; do
           package="${package/\#/}"
-          echo "Install $package? (yes/no)"
-          read -r opt
-          case $opt in
-            "yes" | "y" ) echo "$package" >> "$tmp_packages_list";;
-            "no" | "n" ) ;;
-            * ) echo "Invalid option, please type 'yes' or 'no'.";;
-          esac
+          while true; do
+            echo "Install $package? (yes/no)"
+            read -r opt
+            case $opt in
+              "yes" | "y" )
+                echo "$package" >> "$tmp_packages_list"
+                break
+                ;;
+              "no" | "n" ) break;;
+              * ) echo "Invalid option, please type 'yes' or 'no'.";;
+            esac
+          done
         done
         cp "$tmp_packages_list" packages.txt
         rm "$tmp_packages_list"
