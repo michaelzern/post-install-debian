@@ -1,4 +1,3 @@
-# Mandatory packages
 neofetch
 
 # Optional packages
