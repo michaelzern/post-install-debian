@@ -1,0 +1,30 @@
+name: Generate Checksums
+
+on:
+  push:
+    paths:
+      - 'install.sh'
+      - 'packages.txt'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  generate_checksums:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Generate Checksums
+        run: |
+          sha256sum install.sh > checksums.sha256
+          sha256sum packages.txt >> checksums.sha256
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add checksums.sha256
+          git commit -m "Update checksums.sha256" || echo "No changes to commit"
+          git push
