@@ -32,7 +32,6 @@ update_upgrade() {
 
 install_pkgs() {
   while IFS=$'\n' read -r p; do
-    [[ "$p" == "# "* ]] && continue
     sudo apt install -y "$p" && echo -e "  ${p}:\\t\\t${COL_LIGHT_GREEN}Installation successful${COL_NC}" || { echo -e "  ${p}:\\t\\t${COL_LIGHT_RED}Error installing${COL_NC}"; exit 1; }
   done < "$1"
 }
@@ -50,7 +49,14 @@ EOT
 }
 
 check_reboot() {
-  [ -f /var/run/reboot-required ] && echo "Reboot required"
+  if [ -f /var/run/reboot-required ]; then
+    echo "Reboot required"
+    echo "Do you want to reboot now? (yes/no)"
+    read -r reboot_ans
+    if [[ "$reboot_ans" =~ ^(yes|y)$ ]]; then
+      sudo reboot
+    fi
+  fi
 }
 
 main() {
