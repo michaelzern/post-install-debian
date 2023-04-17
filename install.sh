@@ -1,4 +1,9 @@
 #!/bin/bash
+# Color definitions
+COL_NC='\033[0m' # No Color
+COL_LIGHT_GREEN='\033[1;32m'
+COL_LIGHT_RED='\033[1;31m'
+
 # Shortened script to install apps on a new system (Debian)
 
 readarray -t opt_pkgs < <(grep '^# ' packages.txt | sed 's/^# //')
@@ -28,7 +33,7 @@ update_upgrade() {
 install_pkgs() {
   while IFS=$'\n' read -r p; do
     [[ "$p" == "# "* ]] && continue
-    sudo apt install -y "$p" || { echo "Error installing $p."; exit 1; }
+    sudo apt install -y "$p" && echo -e "  ${p}:\\t\\t${COL_LIGHT_GREEN}Installation successful${COL_NC}" || { echo -e "  ${p}:\\t\\t${COL_LIGHT_RED}Error installing${COL_NC}"; exit 1; }
   done < "$1"
 }
 
@@ -57,7 +62,7 @@ main() {
   update_bashrc
   check_reboot
   rm -f temp_packages.txt
-  echo -e "\nInstallation Complete\n"
+  echo -e "\n${COL_LIGHT_GREEN}Installation Complete${COL_NC}\n"
 }
 
 main
