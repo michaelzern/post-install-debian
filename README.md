@@ -6,7 +6,9 @@
 ## Installation
 
 For a one-step command run (includes file integrity check using SHA256 checksums):
-### ```curl -O https://raw.githubusercontent.com/michaelzern/post-install-debian/main/run_install.sh && chmod +x run_install.sh && ./run_install.sh```
+```
+curl -O https://raw.githubusercontent.com/michaelzern/post-install-debian/main/run_install.sh && chmod +x run_install.sh && ./run_install.sh
+```
 </br>
 
 Alternatively, you can manually download and run the script:
