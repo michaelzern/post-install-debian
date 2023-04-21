@@ -4,8 +4,14 @@ COL_NC='\033[0m' # No Color
 COL_LIGHT_GREEN='\033[1;32m'
 COL_LIGHT_RED='\033[1;31m'
 
-# Shortened script to install apps on a new system (Debian)
+# Prompt for noninteractive mode
+echo "Do you want to set noninteractive mode? (yes/no)"
+read -r noninteractive_ans
+if [[ "$noninteractive_ans" =~ ^(yes|y)$ ]]; then
+  export DEBIAN_FRONTEND=noninteractive
+fi
 
+# Shortened script to install apps on a new system (Debian)
 readarray -t opt_pkgs < <(grep '^# ' packages.txt | sed 's/^# //')
 prompt_optional_pkgs() {
   grep -v '^# ' packages.txt > temp_packages.txt
