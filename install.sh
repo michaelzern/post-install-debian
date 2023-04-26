@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Color definitions
 COL_NC='\033[0m' # No Color
 COL_LIGHT_GREEN='\033[1;32m'
