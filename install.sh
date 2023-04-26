@@ -4,6 +4,22 @@ COL_NC='\033[0m' # No Color
 COL_LIGHT_GREEN='\033[1;32m'
 COL_LIGHT_RED='\033[1;31m'
 
+# Functions for colored output
+success_message() {
+  echo -e "${COL_LIGHT_GREEN}$1${COL_NC}"
+}
+
+error_message() {
+  echo -e "${COL_LIGHT_RED}$1${COL_NC}"
+}
+
+# Help flag
+if [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]; then
+  echo "Usage: ./install.sh"
+  echo "Installs a list of packages specified in the packages.txt file."
+  exit 0
+fi
+
 # Prompt for noninteractive mode
 echo "Do you want to set noninteractive mode? (yes/no)"
 read -r noninteractive_ans
@@ -15,7 +31,7 @@ fi
 readarray -t opt_pkgs < <(grep '^# ' packages.txt | sed 's/^# //')
 prompt_optional_pkgs() {
   grep -v '^# ' packages.txt > temp_packages.txt
-  echo "Install optional packages? (yes/yes -a/no)"
+  echo "Install optional packages? (yes / yes -a / no)"
   while read -r ans; do
     case $ans in
       "yes -a" | "y -a" )
@@ -38,7 +54,12 @@ update_upgrade() {
 
 install_pkgs() {
   while IFS=$'\n' read -r p; do
-    sudo apt install -y "$p" && echo -e "  ${p}:\\t\\t${COL_LIGHT_GREEN}Installation successful${COL_NC}" || { echo -e "  ${p}:\\t\\t${COL_LIGHT_RED}Error installing${COL_NC}"; exit 1; }
+    if sudo apt install -y "$p"; then
+      success_message "  ${p}:\t\tInstallation successful"
+    else
+      error_message "  ${p}:\t\tError installing"
+      exit 1
+    fi
   done < "$1"
 }
 
@@ -66,7 +87,7 @@ check_reboot() {
 }
 
 main() {
-  [ ! -f packages.txt ] && echo "Error: Package list file packages.txt not found." && exit 1
+  [ ! -f packages.txt ] && error_message "Error: Package list file packages.txt not found." && exit 1
   update_upgrade
   prompt_optional_pkgs
   install_pkgs temp_packages.txt
@@ -74,7 +95,7 @@ main() {
   update_bashrc
   check_reboot
   rm -f temp_packages.txt
-  echo -e "\n${COL_LIGHT_GREEN}Installation Complete${COL_NC}\n"
+  success_message "\nInstallation Complete\n"
 }
 
 main
